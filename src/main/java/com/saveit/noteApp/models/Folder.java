@@ -4,28 +4,21 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-import java.time.LocalDateTime;
-import java.util.List;
+import javax.persistence.*;s
 
 @Entity
-@Table (name = "Note")
+@Table (name = "Folder")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Note {
+public class Folder {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "id")
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "creationDate")
-    private LocalDateTime creationDate;
-    @Column(name = "body", columnDefinition = "text")
-    private String body;
     @Column(name = "authorId")
     private Long authorId;
-    @Column(name = "folderId")
-    private Long folderId;
 }
+
