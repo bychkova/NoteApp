@@ -14,10 +14,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
     private final NoteService noteService;
     @GetMapping("/")
-    public String home(Model model) {
-        Iterable<Note> notes = noteService.findAll();
+    public String notes(Model model) {
+        //Iterable<Note> notes = noteService.findAll();
         model.addAttribute("title", "Сохраняй");
-        return "home";
+        model.addAttribute("notes", noteService.listNotes());
+        return "notes";
     }
     @GetMapping("/note/create")
     public String newNote(Model model) {
@@ -30,4 +31,9 @@ public class MainController {
         return "redirect:/";
     }
 
+    @GetMapping("/folder/create")
+    public String newFolder(Model model) {
+        model.addAttribute("title", "Добавить папку");
+        return "createFolder";
+    }
 }

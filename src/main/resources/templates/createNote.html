@@ -12,15 +12,28 @@
         <h4 class="mb-0">Новая заметка</h4>
         <hr class="my-4">
         <form action="/note/create" method="post">
+            <div class="row">
+                <div class="col-7">
+                    <select class="form-select" name="folder">
+                        <option value="">Без папки...</option>
+                        <option>Папка 1</option>
+                        <option>Папка 1</option>
+                    </select>
+                </div>
+                <div class="col-5">
+                    <button class="w-100 btn btn-dark px-3" type="button"><a href="/folder/create" class="dropdown-item">+ новая папка</a></button>
+                </div>
+            </div>
+            <br>
             <div>
-                <input type="text" class="form-control" id="title" rows="5" placeholder="Заголовок" value="" required="">
+                <input type="text" class="form-control" name="title" rows="5" placeholder="Заголовок" value="" required="">
                 <div class="invalid-feedback">
                     Valid first name is required.
                 </div>
             </div>
             <br>
             <div>
-                <textarea type="text" class="form-control" id="body" placeholder="" value="" required=""></textarea>
+                <textarea type="text" class="form-control" rows = "5" name="body" placeholder="Описание" value="" required=""></textarea>
                 <div class="invalid-feedback">
                     Valid first name is required.
                 </div>

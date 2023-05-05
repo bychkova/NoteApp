@@ -26,4 +26,6 @@ public class Note {
     private String body;
     @Column(name = "authorId")
     private Long authorId;
+    @Column(name = "folder")
+    private String folder;
 }

@@ -16,6 +16,11 @@ public class NoteService {
         return noteRepository.findAll();
     }
 
+    public List<Note> listByTitle(String title){
+        if (title != null) noteRepository.findByTitle(title);
+        return noteRepository.findAll();
+    }
+
     public void saveNote(Note note){
         noteRepository.save(note);
     }
@@ -23,5 +28,9 @@ public class NoteService {
     public void deleteNote(Long id){
         noteRepository.deleteById(id);
     }
+
+    /*public Note getNoteById(Long id){
+        noteRepository.findById(id).orElse(null);
+    }*/
 
 }

@@ -10,7 +10,7 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-3">
-        <div class="col">
+        <div class="col" th:each = "el : ${}">
             <div class="card shadow-sm">
                 <div class="card-body">
                     <h4 class="mb-0">Post title</h4>
