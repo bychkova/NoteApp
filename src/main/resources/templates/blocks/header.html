@@ -8,8 +8,7 @@
                 <li><a class="dropdown-item" href="/note/create">Добавить</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/">Все заметки</a></li>
-                <li><a class="dropdown-item" href="#">Папка</a></li>
-                <li><a class="dropdown-item" href="#">Папка</a></li>
+                <li th:each = "el : ${folders}"><a class="dropdown-item" href="#" th:text = "${el.title}"></a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/folder/create">+ новая папка</a></li>
             </ul>
@@ -25,7 +24,7 @@
                     <img src="https://raw.githubusercontent.com/bychkova/NoteApp/main/src/main/resources/templates/img/avatar-small.png" alt="avatar" width="32" height="32" class="rounded-circle">
                 </a>
                 <ul class="dropdown-menu text-small shadow" style="">
-                    <li><a class="dropdown-item" href="#">Профиль</a></li>
+                    <li><a class="dropdown-item" href="user/edit/">Профиль</a></li>
                     <li><hr class="dropdown-divider"></li>
                     <li><a class="dropdown-item" href="#">Выход</a></li>
                 </ul>
