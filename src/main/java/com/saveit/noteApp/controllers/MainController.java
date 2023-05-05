@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -14,10 +15,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 public class MainController {
     private final NoteService noteService;
     @GetMapping("/")
-    public String notes(Model model) {
-        //Iterable<Note> notes = noteService.findAll();
+    public String notes(@RequestParam(name = "search", required = false) String search, Model model) {
         model.addAttribute("title", "Сохраняй");
-        model.addAttribute("notes", noteService.listNotes());
+        model.addAttribute("notes", noteService.listNotes(search));
         return "notes";
     }
     @GetMapping("/note/create")
@@ -28,6 +28,11 @@ public class MainController {
     @PostMapping("/note/create")
     public String createNote(Note note) {
         noteService.saveNote(note);
+        return "redirect:/";
+    }
+    @PostMapping("/note/delete/{id}")
+    public String deleteNote(@PathVariable Long id) {
+        noteService.deleteNote(id);
         return "redirect:/";
     }
 

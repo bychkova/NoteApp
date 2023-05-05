@@ -10,16 +10,22 @@
 <header th:insert="blocks/header :: header"></header>
 <div class="container">
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4  g-3">
-        <div class="col" th:each = "el : ${}">
+        <div class="col" th:each = "el : ${notes}">
             <div class="card shadow-sm">
                 <div class="card-body">
-                    <h4 class="mb-0">Post title</h4>
-                    <div class="mb-1 text-body-secondary">Nov 11</div>
-                    <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                    <h4 class="mb-0" th:text = "${el.title}"/>
+                    <div class="mb-1 text-body-secondary" th:text = "${el.creationDate}"/>
+                    <p class="card-text" th:text = "${el.body}"/>
                     <div class="d-flex justify-content-between align-items-center">
                         <div class="btn-group">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Редактировать</button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">Удалить</button>
+                            <form th:action="'/note/edit/' + ${el.id}" method = "get">
+                                <input type="submit" class="btn btn-sm btn-outline-secondary" value = "Редактировать"/>
+                            </form>
+                            <form th:action="'/note/delete/' + ${el.id}" method = "post">
+                                <input type="submit" class="btn btn-sm btn-outline-secondary" value = "Удалить"/>
+                            </form>
+
+
                         </div>
                     </div>
                 </div>

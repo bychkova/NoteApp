@@ -12,15 +12,10 @@ import java.util.List;
 public class NoteService {
     private final NoteRepository noteRepository;
 
-    public List<Note> listNotes(){
+    public List<Note> listNotes(String title){
+        if (title != null) return noteRepository.findByTitle(title);
         return noteRepository.findAll();
     }
-
-    public List<Note> listByTitle(String title){
-        if (title != null) noteRepository.findByTitle(title);
-        return noteRepository.findAll();
-    }
-
     public void saveNote(Note note){
         noteRepository.save(note);
     }
