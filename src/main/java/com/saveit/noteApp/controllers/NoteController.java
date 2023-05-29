@@ -12,13 +12,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.security.Principal;
+
 @Controller
 @RequiredArgsConstructor
 public class NoteController {
     private final NoteService noteService;
     private final FolderService folderService;
     @GetMapping("/")
-    public String notes(@RequestParam(name = "search", required = false) String search, Model model) {
+    public String notes(@RequestParam(name = "search", required = false) String search, Model model, Principal principal) {
         model.addAttribute("title", "Сохраняй");
         model.addAttribute("notes", noteService.listNotes(search));
         model.addAttribute("folders", folderService.listFolder());
@@ -31,8 +33,8 @@ public class NoteController {
         return "createNote";
     }
     @PostMapping("/note/create")
-    public String createNote(Note note) {
-        noteService.saveNote(note);
+    public String createNote(Note note, Principal principal) {
+        noteService.saveNote(principal, note);
         return "redirect:/";
     }
 

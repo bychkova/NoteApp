@@ -19,13 +19,5 @@ public class FolderService {
     public void saveFolder(Folder folder){
         folderRepository.save(folder);
     }
-    public void deleteFolder(Long id){
-        folderRepository.deleteById(id);
-    }
-
-    public Folder getFolderById(Long folderId) {
-        Optional<Folder> folderOptional = folderRepository.findById(folderId);
-            return folderOptional.get();
-    }
 
 }

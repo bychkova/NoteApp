@@ -9,10 +9,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table (name = "User")
@@ -24,19 +21,18 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "id")
     private Long id;
-    @Column(name = "name")
-    private String name;
     @Column(name = "email", unique = true)
     private String email;
     @Column(name = "password", length = 1000)
     private String password;
     @Column(name = "active")
     private boolean active;
-    //@Column(name = "roles", columnDefinition = "text")
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles = new HashSet<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER, mappedBy = "author")
+    private List<Note> notes = new ArrayList<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

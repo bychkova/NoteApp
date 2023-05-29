@@ -23,7 +23,8 @@ public class Note {
     @Column(name = "body", columnDefinition = "text")
     private String body;
     private String folder;
-    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.LAZY)
+    @JoinColumn
     private User author;
 
 }
