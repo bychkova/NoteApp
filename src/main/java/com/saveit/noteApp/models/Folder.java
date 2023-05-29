@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "Folder")
@@ -18,7 +20,5 @@ public class Folder {
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "authorId")
-    private Long authorId;
 }
 

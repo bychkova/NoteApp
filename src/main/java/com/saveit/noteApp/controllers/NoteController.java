@@ -1,5 +1,6 @@
 package com.saveit.noteApp.controllers;
 
+import com.saveit.noteApp.models.Folder;
 import com.saveit.noteApp.models.Note;
 import com.saveit.noteApp.services.FolderService;
 import com.saveit.noteApp.services.NoteService;
@@ -34,6 +35,7 @@ public class NoteController {
         noteService.saveNote(note);
         return "redirect:/";
     }
+
     @PostMapping("/note/delete/{id}")
     public String deleteNote(@PathVariable Long id) {
         noteService.deleteNote(id);

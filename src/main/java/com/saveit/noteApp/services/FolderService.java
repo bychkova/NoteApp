@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -20,6 +21,11 @@ public class FolderService {
     }
     public void deleteFolder(Long id){
         folderRepository.deleteById(id);
+    }
+
+    public Folder getFolderById(Long folderId) {
+        Optional<Folder> folderOptional = folderRepository.findById(folderId);
+            return folderOptional.get();
     }
 
 }

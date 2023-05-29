@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table (name = "User")
@@ -13,7 +15,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -22,4 +24,8 @@ public class User {
     private String email;
     @Column(name = "password")
     private String password;
+    /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Note> notes = new ArrayList<>();
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<Folder> folders = new ArrayList<>();*/
 }

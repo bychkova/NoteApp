@@ -2,6 +2,7 @@ package com.saveit.noteApp.controllers;
 
 import com.saveit.noteApp.models.Folder;
 import com.saveit.noteApp.services.FolderService;
+import com.saveit.noteApp.services.NoteService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequiredArgsConstructor
 public class FolderController {
     private final FolderService folderService;
+    private final NoteService noteService;
 
     @GetMapping("/folder/create")
     public String newFolder(Model model) {
@@ -25,7 +27,16 @@ public class FolderController {
     @PostMapping("/folder/create")
     public String createFolder(Folder folder) {
         folderService.saveFolder(folder);
-        return "redirect:/";
+        return "redirect:/note/create";
     }
+
+    @GetMapping("/{folder}")
+    public String showNotesByFolder(@PathVariable String folder, Model model){
+        model.addAttribute("title", "Сохраняй");
+        model.addAttribute("folders", folderService.listFolder());
+        model.addAttribute("notes", noteService.listNotesByFolder(folder));
+        return "notes";
+    }
+
 }
 

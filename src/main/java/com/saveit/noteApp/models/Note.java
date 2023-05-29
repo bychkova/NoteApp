@@ -20,12 +20,10 @@ public class Note {
     private Long id;
     @Column(name = "title")
     private String title;
-    @Column(name = "creationDate")
-    private LocalDateTime creationDate;
     @Column(name = "body", columnDefinition = "text")
     private String body;
-    @Column(name = "authorId")
-    private Long authorId;
-    @Column(name = "folderId")
-    private Long folderId;
+    private String folder;
+    @ManyToOne(cascade = CascadeType.REFRESH, fetch = FetchType.EAGER)
+    private User author;
+
 }
