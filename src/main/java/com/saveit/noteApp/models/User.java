@@ -1,15 +1,18 @@
 package com.saveit.noteApp.models;
 
+import com.saveit.noteApp.models.enums.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table (name = "User")
@@ -18,7 +21,7 @@ import java.util.List;
 @NoArgsConstructor
 public class User implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "id")
     private Long id;
     @Column(name = "name")
@@ -27,12 +30,17 @@ public class User implements UserDetails {
     private String email;
     @Column(name = "password", length = 1000)
     private String password;
-    @Column(name = "isActive")
+    @Column(name = "active")
     private boolean active;
+    //@Column(name = "roles", columnDefinition = "text")
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles = new HashSet<>();
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return roles;
     }
 
     @Override
@@ -59,6 +67,7 @@ public class User implements UserDetails {
     public boolean isEnabled() {
         return active;
     }
+
     /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Note> notes = new ArrayList<>();
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)

@@ -10,8 +10,10 @@
 <body>
 <div class = "container pt-5" style="max-width: 400px;">
 
-<form action="/login" metod = "post">
-    <img src="https://raw.githubusercontent.com/bychkova/NoteApp/main/src/main/resources/templates/img/logo-margin.png" alt="logo" height="38">
+<form action="/login" method = "post">
+    <div class = "text-center mb-3">
+        <img src="https://raw.githubusercontent.com/bychkova/NoteApp/main/src/main/resources/templates/img/logo-margin.png" alt="logo" height="38">
+    </div>
     <div class="mb-3">
         <label for="username" class="form-label">Адрес электронной почты</label>
         <input type="email" class="form-control" id="username" name="username">
@@ -20,7 +22,8 @@
         <label for="passwordId" class="form-label">Пароль</label>
         <input type="password" class="form-control" id="passwordId" name = "password">
     </div>
-    <button type="submit" class="w-100 btn btn-dark">Войти</button>
+    <input type="hidden" name="_csrf" value="${_csrf.token}">
+    <button type="submit" class="w-100 mt-2 btn btn-dark">Войти</button>
 </form>
 </div>
 </body>
