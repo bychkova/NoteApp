@@ -17,7 +17,7 @@
                 <div class="col-7">
                     <select class="form-select" name="folder">
                         <option value="">Без папки...</option>
-                        <option th:each = "el : ${folders}"><span th:text = "${el.title}"></span></option>
+                        <option th:each = "folder : ${uniqueFolders}"><span th:text = "${folder}"></span></option>
                     </select>
                 </div>
                 <div class="col-5">

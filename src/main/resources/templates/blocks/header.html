@@ -8,7 +8,7 @@
                 <li><a class="dropdown-item" href="/note/create">Добавить</a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/">Все заметки</a></li>
-                <li th:each = "el : ${folders}"><a class="dropdown-item" th:href="@{${el.title}}" th:text = "${el.title}"></a></li>
+                <li th:each = "folder : ${uniqueFolders}"><a class="dropdown-item" th:href="@{${folder}}" th:text = "${folder}"></a></li>
                 <li><hr class="dropdown-divider"></li>
                 <li><a class="dropdown-item" href="/folder/create">+ новая папка</a></li>
             </ul>

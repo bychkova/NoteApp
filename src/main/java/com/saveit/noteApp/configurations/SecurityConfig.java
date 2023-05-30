@@ -1,9 +1,12 @@
 package com.saveit.noteApp.configurations;
 
+import com.saveit.noteApp.services.CustomAuthenticationProvider;
 import com.saveit.noteApp.services.CustomUserDetailsService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -20,6 +23,8 @@ import javax.sql.DataSource;
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private final CustomUserDetailsService userDetailsService;
     @Autowired
+    private CustomAuthenticationProvider customAuthenticationProvider;
+    @Autowired
     private DataSource dataSource;
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -31,6 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .formLogin()
                     .loginPage("/login")
+                    .failureUrl("/login?error=true")
                     .permitAll()
                 .and()
                     .logout()
@@ -40,15 +46,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.jdbcAuthentication()
+        auth
+            .jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
                 .usersByUsernameQuery("select email, password, active from user where email=?")
                 .authoritiesByUsernameQuery("select u.email, ur.roles from user u inner join user_role ur on u.id = ur.user_id where u.email=?");
+        auth.authenticationProvider(customAuthenticationProvider);
 
     }
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder(8);
+    }
+
+    @Bean
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

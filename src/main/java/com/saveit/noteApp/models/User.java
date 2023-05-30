@@ -64,8 +64,4 @@ public class User implements UserDetails {
         return active;
     }
 
-    /*@OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Note> notes = new ArrayList<>();
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    private List<Folder> folders = new ArrayList<>();*/
 }
